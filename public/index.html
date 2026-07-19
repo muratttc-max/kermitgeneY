@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#123c2a" />
+  <title>KermitGene Acı Çiğ Köfte Yeme Yarışması</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand-mark" aria-hidden="true">🐸</div>
+    <div>
+      <p class="eyebrow">KermitGene sunar</p>
+      <h1>Acı Çiğ Köfte Yeme Yarışması</h1>
+    </div>
+  </header>
+
+  <main class="shell">
+    <nav class="tabs" aria-label="Sayfalar">
+      <button class="tab active" type="button" data-tab="race">🌯 Yarış</button>
+      <button class="tab" type="button" data-tab="history">🏆 Yarış Sonuçları</button>
+    </nav>
+
+    <section id="race-panel" class="panel active" aria-labelledby="race-title">
+      <div id="registration-card" class="card registration-card">
+        <p class="tag">İki yarışmacı, iki bardak su, tek kazanan!</p>
+        <h2 id="race-title">Rakibine meydan oku</h2>
+        <p class="lead">Kendi adını ve yarışacağın kişinin adını yaz. Sen sıranı tamamladıktan sonra rakibin açık yarışlardan katılabilir.</p>
+
+        <form id="registration-form">
+          <div class="form-grid">
+            <div>
+              <label for="player-name">Senin adın</label>
+              <input id="player-name" name="name" type="text" maxlength="40" minlength="2" autocomplete="name" placeholder="Örnek: Süruri Özdal" required />
+            </div>
+            <div>
+              <label for="opponent-name">Rakibinin adı</label>
+              <input id="opponent-name" name="opponentName" type="text" maxlength="40" minlength="2" placeholder="Örnek: Ayşegül Özdal" required />
+            </div>
+          </div>
+
+          <fieldset>
+            <legend>Senin figürün</legend>
+            <div class="gender-options">
+              <label class="gender-card">
+                <input type="radio" name="gender" value="kadin" required />
+                <span class="gender-emoji" aria-hidden="true">👩</span>
+                <span>Kadın</span>
+              </label>
+              <label class="gender-card">
+                <input type="radio" name="gender" value="erkek" required />
+                <span class="gender-emoji" aria-hidden="true">👨</span>
+                <span>Erkek</span>
+              </label>
+            </div>
+          </fieldset>
+
+          <button class="primary-button" type="submit">Meydan Okumayı Başlat</button>
+          <p id="form-message" class="message" aria-live="polite"></p>
+        </form>
+      </div>
+
+      <div id="join-card" class="card join-card hidden">
+        <button id="cancel-join" class="back-button" type="button">← Açık yarışlara dön</button>
+        <p class="tag">Meydan okuma seni bekliyor</p>
+        <h2 id="join-title">Yarışa katıl</h2>
+        <p id="join-copy" class="lead"></p>
+
+        <form id="join-form">
+          <label for="join-name">Adını doğrula</label>
+          <input id="join-name" name="name" type="text" maxlength="40" minlength="2" required />
+
+          <fieldset>
+            <legend>Senin figürün</legend>
+            <div class="gender-options">
+              <label class="gender-card">
+                <input type="radio" name="gender" value="kadin" required />
+                <span class="gender-emoji" aria-hidden="true">👩</span>
+                <span>Kadın</span>
+              </label>
+              <label class="gender-card">
+                <input type="radio" name="gender" value="erkek" required />
+                <span class="gender-emoji" aria-hidden="true">👨</span>
+                <span>Erkek</span>
+              </label>
+            </div>
+          </fieldset>
+
+          <button class="primary-button" type="submit">Yarışa Katıl</button>
+          <p id="join-message" class="message" aria-live="polite"></p>
+        </form>
+      </div>
+
+      <div id="game-card" class="card game-card hidden" aria-live="polite">
+        <div class="duel-banner">
+          <span id="duel-player">—</span>
+          <strong>VS</strong>
+          <span id="duel-opponent">—</span>
+        </div>
+
+        <div class="game-topline">
+          <div>
+            <span class="mini-label">Sıra sende</span>
+            <strong id="active-player">—</strong>
+          </div>
+          <div class="score-box">
+            <span>Yenen lokma</span>
+            <strong id="bite-count">0</strong>
+          </div>
+        </div>
+
+        <div id="stage" class="stage">
+          <div class="heat heat-left" aria-hidden="true">🌶️</div>
+          <div id="character" class="character" aria-label="Yarışmacı figürü">
+            <span id="face" class="face">🙂</span>
+            <span id="body" class="body">👕</span>
+          </div>
+          <div class="table-scene" aria-hidden="true">
+            <div id="wrap" class="wrap">🌯</div>
+            <div id="water" class="water hidden">🥤</div>
+            <div class="table"></div>
+          </div>
+          <div class="heat heat-right" aria-hidden="true">🌶️</div>
+        </div>
+
+        <div class="meter-wrap">
+          <div class="meter-labels"><span>Serin</span><span>Acı seviyesi</span><span>Yangın</span></div>
+          <div class="meter" role="progressbar" aria-label="Acı seviyesi" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+            <div id="heat-fill" class="heat-fill"></div>
+          </div>
+        </div>
+
+        <button id="eat-button" class="eat-button" type="button">🌯 Bir Lokma Ye!</button>
+        <p id="game-message" class="game-message">Hız önemli değil; yalnızca lokma sayısı önemli!</p>
+      </div>
+
+      <div id="result-card" class="card result-card hidden">
+        <div id="result-icon" class="result-icon" aria-hidden="true">🥵🥤</div>
+        <p id="result-tag" class="tag">Sıran tamamlandı</p>
+        <h2 id="result-title">Acı galip geldi</h2>
+        <p id="result-copy" class="lead"></p>
+        <div id="score-comparison" class="score-comparison hidden"></div>
+        <div class="result-actions">
+          <button id="race-again" class="primary-button" type="button">Yeni Meydan Okuma</button>
+          <button id="show-open-races" class="secondary-button" type="button">Açık Yarışları Gör</button>
+          <button id="show-history" class="secondary-button" type="button">Sonuçları Gör</button>
+        </div>
+        <p id="save-message" class="message" aria-live="polite"></p>
+      </div>
+
+      <div id="open-races-card" class="card open-races-card">
+        <div class="history-heading">
+          <div>
+            <p class="tag">Bekleyen meydan okumalar</p>
+            <h2>Açık yarışlar</h2>
+          </div>
+          <button id="refresh-open" class="secondary-button compact" type="button">Yenile</button>
+        </div>
+        <p class="lead compact-lead">Sana gönderilen meydan okumayı bulup yarışa katıl. Bir gün içinde tamamlanmayan yarışlar otomatik olarak iptal edilir.</p>
+        <div id="open-races-list" class="open-races-list"></div>
+        <p id="open-message" class="message" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <section id="history-panel" class="panel" aria-labelledby="history-title">
+      <div class="card history-card">
+        <div class="history-heading">
+          <div>
+            <p class="tag">KermitGene Düello Arşivi</p>
+            <h2 id="history-title">Tamamlanan yarışlar</h2>
+          </div>
+          <button id="refresh-history" class="secondary-button compact" type="button">Yenile</button>
+        </div>
+
+        <div class="stats-row">
+          <div><span>Tamamlanan yarış</span><strong id="total-races">0</strong></div>
+          <div><span>En yüksek skor</span><strong id="top-score">0 lokma</strong></div>
+        </div>
+
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>Tarih</th>
+                <th>Yarışma</th>
+                <th>Skor</th>
+                <th>Kazanan</th>
+              </tr>
+            </thead>
+            <tbody id="history-body"></tbody>
+          </table>
+        </div>
+        <p id="history-message" class="message" aria-live="polite"></p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>🐸 KermitGene</span> · Acının ölçüsü suya uzanana kadardır.
+  </footer>
+</body>
+</html>
